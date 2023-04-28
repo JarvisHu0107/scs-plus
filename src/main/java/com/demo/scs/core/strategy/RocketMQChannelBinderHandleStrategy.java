@@ -41,19 +41,6 @@ public class RocketMQChannelBinderHandleStrategy extends ChannelBinderHandler {
                 if (!StringUtils.hasText(rocketMQProducerProperties.getGroup())) {
                     rocketMQProducerProperties.setGroup(out + "-" + ScsPlusConstant.DEFAULT_PRODUCER_GROUP);
                 }
-                // String partitionKey = ParaScsConstant.para_BINDINGS_PREFIX + ParaScsConstant.DOT + out +
-                // "partitionKey";
-                // if (CollectionUtils.isEmpty(customizePropsHolder.getBindingsProps()) &&
-                // customizePropsHolder.getBindingsProps().containsKey(partitionKey)) {
-                // String partitionField = (String) customizePropsHolder.getBindingsProps().getOrDefault(partitionKey,
-                // null);
-                // if (!bindings.containsKey(out)) {
-                // throw new IllegalStateException("SpringCloudStream BindingServiceProperties cannot find key equals ["
-                // + out + "]");
-                // }
-                //
-                //
-                // }
 
             }
         }
