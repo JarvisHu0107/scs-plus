@@ -19,7 +19,7 @@ import org.springframework.util.CollectionUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 1. para.scs自定义配置加入配置 2.简化原生的多层配置。 各不同类型mq的properties配置项，增强配置实现
+ * 1. jarvis.scs自定义配置加入配置 2.简化原生的多层配置。 各不同类型mq的properties配置项，增强配置实现
  * {@link com.demo.scs.core.BinderFactoryListener}
  *
  * @Author: Hu Xin

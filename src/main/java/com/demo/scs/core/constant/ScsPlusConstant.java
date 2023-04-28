@@ -15,8 +15,8 @@ public class ScsPlusConstant {
 
     public final static String BINDING_TYPE_OUTPUT = "output";
 
-    public static final String BINDINGS_PREFIX = "para.scs.bindings";
-    public static final String BINDERS_PREFIX = "para.scs.binders";
+    public static final String BINDINGS_PREFIX = "jarvis.scs.bindings";
+    public static final String BINDERS_PREFIX = "jarvis.scs.binders";
 
     public static final char DOT = '.';
 

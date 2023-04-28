@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * 以下所有的binder和binding都是自定义配置中的名字，无原生scs的配置 1. 持有所有的自定义para.scs.binder/para.scs.bindings配置k,v 2.
+ * 以下所有的binder和binding都是自定义配置中的名字，无原生scs的配置 1. 持有所有的自定义jarvis.scs.binder/jarvis.scs.bindings配置k,v 2.
  * 管理的bindings,binder名字 3. Map< binderName, binderType > 4. Map< binderName,List< inputBinding >> 5. Map<
  * binderName,List< outputBinding >>
  *

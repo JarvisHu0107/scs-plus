@@ -54,7 +54,7 @@ public class BindingBeansEnhanceRegistrar implements ImportBeanDefinitionRegistr
             }
         }
         try {
-            // 根据[para.scs.bindings/binders]前缀配置，1.汇总binder和bindings的信息
+            // 根据[jarvis.scs.bindings/binders]前缀配置，1.汇总binder和bindings的信息
             MutablePropertySources sources = ((AbstractEnvironment)environment).getPropertySources();
             CustomizeScsPropertiesHolder customizeScsPropertiesHolder = CustomizeScsPropertiesHolder.getSingleton();
             for (PropertySource<?> source : sources) {

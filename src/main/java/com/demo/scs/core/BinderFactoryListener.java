@@ -38,7 +38,7 @@ public class BinderFactoryListener implements DefaultBinderFactory.Listener, App
     @Override
     public void afterBinderContextInitialized(String configurationName, ConfigurableApplicationContext binderContext) {
         Binder binder = binderContext.getBean(Binder.class);
-        // 只对para.scs下自定义配置使用增强
+        // 只对jarvis.scs下自定义配置使用增强
         CustomizeScsPropertiesHolder customizePropsHolder = CustomizeScsPropertiesHolder.getSingleton();
 
         BindingServiceProperties bindingServiceProperties = context.getBean(BindingServiceProperties.class);
