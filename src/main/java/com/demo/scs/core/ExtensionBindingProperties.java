@@ -17,6 +17,7 @@ public class ExtensionBindingProperties extends BindingProperties {
      */
     private String type;
 
+
     public String getType() {
         return type;
     }

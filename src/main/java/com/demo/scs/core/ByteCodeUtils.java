@@ -2,6 +2,8 @@ package com.demo.scs.core;
 
 import java.util.List;
 
+import javassist.ClassClassPath;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
@@ -24,6 +26,7 @@ import javassist.bytecode.annotation.StringMemberValue;
  * @Date: 2023/1/15 13:41
  * @Desc:
  **/
+@Slf4j
 public class ByteCodeUtils {
 
     public static final String SCS_DEFINITION_COLLECTOR_CLASS = "com.demo.scs.core.ScsDefinitionCollector";
@@ -37,8 +40,10 @@ public class ByteCodeUtils {
     public static Class<?> generateMethodForInputAndOutputBinding(List<String> inputs, List<String> outputs)
         throws Exception {
         ClassPool pool = ClassPool.getDefault();
-        CtClass inputReturnType = pool.getCtClass(SubscribableChannel.class.getTypeName());
-        CtClass outputReturnType = pool.getCtClass(MessageChannel.class.getTypeName());
+        pool.insertClassPath(new ClassClassPath(SubscribableChannel.class));
+        pool.insertClassPath(new ClassClassPath(MessageChannel.class));
+        CtClass inputReturnType = pool.getCtClass(SubscribableChannel.class.getName());
+        CtClass outputReturnType = pool.getCtClass(MessageChannel.class.getName());
         CtClass ctClass = pool.getCtClass(SCS_DEFINITION_COLLECTOR_CLASS);
 
         if (!CollectionUtils.isEmpty(inputs)) {

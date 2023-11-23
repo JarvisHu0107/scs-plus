@@ -317,8 +317,7 @@ public class StreamListenerAnnotationAutoGenerateBeanPostProcessor
             this.applicationContext.getBeansOfType(StreamListenerResultAdapter.class).values();
         this.binderAwareChannelResolver =
             this.applicationContext.getBean("binderAwareChannelResolver", DestinationResolver.class);
-        this.messageHandlerMethodFactory = this.applicationContext.getBean("integrationMessageHandlerMethodFactory",
-            MessageHandlerMethodFactory.class);
+        this.messageHandlerMethodFactory = this.applicationContext.getBean(MessageHandlerMethodFactory.class);
         this.springIntegrationProperties = this.applicationContext.getBean(SpringIntegrationProperties.class);
 
         // 目前没有配置StreamListenerSetupMethodOrchestrator的Bean
