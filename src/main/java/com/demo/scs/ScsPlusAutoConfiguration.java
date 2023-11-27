@@ -1,9 +1,6 @@
 package com.demo.scs;
 
-import com.demo.scs.core.ScsConfiguration;
-import com.demo.scs.core.ScsExtensionProperties;
-import org.springframework.boot.autoconfigure.mail.MailProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 

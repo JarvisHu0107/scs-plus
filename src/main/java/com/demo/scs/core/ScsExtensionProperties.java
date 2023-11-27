@@ -6,7 +6,6 @@ import java.util.TreeMap;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.stream.config.BinderProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
