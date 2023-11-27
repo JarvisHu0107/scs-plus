@@ -3,6 +3,7 @@ package com.demo.scs.core;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.stream.messaging.DirectWithAttributesChannel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,11 @@ import com.demo.scs.core.constant.ScsPlusConstant;
  **/
 
 @Configuration
+@EnableConfigurationProperties({ScsExtensionProperties.class})
 public class ScsConfiguration {
+
+    private ScsExtensionProperties scsExtensionProperties;
+
 
     /**
      * streamListener自动生成
@@ -29,8 +34,8 @@ public class ScsConfiguration {
      */
     @Bean(name = "streamListenerAutoGenerateAnnotationBeanPostProcessor")
     public static StreamListenerAnnotationAutoGenerateBeanPostProcessor
-        streamListenerAutoGenerateAnnotationBeanPostProcessor() {
-        return new StreamListenerAnnotationAutoGenerateBeanPostProcessor();
+    streamListenerAutoGenerateAnnotationBeanPostProcessor(ScsExtensionProperties scsExtensionProperties) {
+        return new StreamListenerAnnotationAutoGenerateBeanPostProcessor(scsExtensionProperties);
     }
 
     /**
@@ -40,7 +45,7 @@ public class ScsConfiguration {
      */
     @Bean
     public ConfigurationPropertiesBeanPostProcessor configurationPropertiesBeanPostProcessor(
-        @Autowired(required = false) ScsExtensionProperties scsExtensionProperties) {
+         ScsExtensionProperties scsExtensionProperties) {
         return new ConfigurationPropertiesBeanPostProcessor(scsExtensionProperties);
     }
 
