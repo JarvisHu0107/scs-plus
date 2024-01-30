@@ -13,7 +13,7 @@
 ## 重点：
 
 * 顺序消费：只能保证提交到MQ中落盘的顺序，并不能保证生产者生产的顺序一致。 比如：多个生产者生产消息，因为一些请求延迟，导致持久化的顺序落后。
-  **_建议在业务上消息体中使用时间戳字段来进行区分_**
+  **_无法从Message header字段中区分，建议在业务上消息体中使用时间戳字段来进行区分_**
 * 分布式MQ使用严格的全局顺序，需要将topic分区设置为1，而一个分区的消费者无论起多少个consumer实例只能有一个consumer。所以推荐使用局部有序。
 * 局部有序：
     1. 生产者：设置发送消息时使用的分区字段`partitionKeyExpression: headers['xxx']`,在message header中必须包含此xxx字段值。mq会根据此字段值进行分片的路由。
@@ -25,8 +25,9 @@
 
 
 * 消费offset：
-    1. rocketmq默认CONSUME_FROM_LAST_OFFSET,kafka默认startOffset = earliest， 即一个新的consumer(consumerGroupId)
+    1. rocketmq默认CONSUME_FROM_LAST_OFFSET,scs中kafka默认startOffset = earliest![img_3.png](img_3.png)， 即一个新的consumer(consumerGroupId)
        在rocketmq中会从latest开始消费，而在kafka中会从earliest。 详见kafka源码：`KafkaMessageChannelBinder#createKafkaConsumerFactory`
+
 
 * 如果使用TenantMessageData<T>进行发送，**只关心业务数据的情况下**(消息的header会进行丢弃)，请在消费端使用TenantMessageData<T>进行接受消费。 也可以使用Message<String>
   进行消费，但payload数据需要手动进行序列化,这种方式可以保存原始的message header。
@@ -50,7 +51,7 @@
        `ConsumeMessageOrderlyService$consumeExecutor   
        ConsumeMessageConcurrentlyService$consumeExecutor,submitConsumeRequest(...) `
 
-* 消费者中concurrency如果不配置，默认是单线程消费。
+* 消费者中concurrency如果不配置，默认是单线程消费（即concurrency = 1 ）。
 
 在spring生命周期过程中，源码的作用图。
 ![img_1.png](img_1.png)
@@ -74,8 +75,8 @@
 
 
 * BinderFactoryListener： 在bindProducer/bindConsumer过程中，
-    1. getBinder 【-> doGetBinder -> getBinderInstance(String configurationName),提供一个listener钩子，
-       可以去修改binder中的成员变量（包括xxxProducerProperties,xxxConsumerProperties）】 ->
+    1. getBinder 【--> doGetBinder --> getBinderInstance(String configurationName),提供一个listener钩子，
+       可以去修改binder中的成员变量（包括xxxProducerProperties,xxxConsumerProperties）】 -->
        doBindProducer【修改后的ProducerProperties和ConsumerProperties是实例化Binding的入参】
 
 **注意：加强版本也支持原生SpringCloudStream的用法，可以共存，但不要混合使用（混合使用：配置用自定义，声明使用原生的注解 or 配置用原生，声明使用加强包提供的方式）。**
